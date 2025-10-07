@@ -1,8 +1,7 @@
-on:
-  release:
-    types: [published]
-
 name: Build Release
+on:
+  workflow_dispatch:
+  
 jobs:
   make:
     name: Build and Upload Sileo
@@ -57,3 +56,11 @@ jobs:
         with:
             name: org.coolstar.sileo_iphoneos-arm64
             path: ./packages/*_iphoneos-arm64.deb
+
+      - name: Make Draft Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          name: SlightlyBetterSileo_Test
+          files: ./packages/*.deb
+      
